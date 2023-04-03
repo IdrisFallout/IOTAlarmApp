@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class HandleMainActivity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject panelPrefab;
+    public GameObject scrollContent;
 
-    // Update is called once per frame
-    void Update()
+    public void AddAlarm()
     {
-        
+        GameObject newPanel = Instantiate(panelPrefab, scrollContent.transform);
+        // You can set any additional properties or behaviors for the new panel here
     }
 }
