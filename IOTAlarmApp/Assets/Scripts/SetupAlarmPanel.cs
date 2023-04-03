@@ -12,6 +12,10 @@ public class SetupAlarmPanel : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI AmPmText;
+    
+    [SerializeField]
+    private GameObject AlarmPanel;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +28,13 @@ public class SetupAlarmPanel : MonoBehaviour
     void Update()
     {
         
+    }
+    
+    public void ExpandAlarmPanel()
+    {
+        // print panel height
+        Debug.Log(AlarmPanel.GetComponent<RectTransform>().rect.height);
+        // increasing panel height
+        Debug.Log("Increasing panel height");
     }
 }

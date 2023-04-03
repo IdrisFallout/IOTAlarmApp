@@ -112,7 +112,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100, y: 113.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4613024824962440404
 MonoBehaviour:
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeText: {fileID: 5240117278925794282}
   AmPmText: {fileID: 5240117278047150548}
+  AlarmPanel: {fileID: 5240117278005258272}
 --- !u!1 &2986595955565909424
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +140,7 @@ GameObject:
   - component: {fileID: 7787814303514886220}
   - component: {fileID: 5535012304971083298}
   - component: {fileID: 7721509260783097482}
+  - component: {fileID: 793124858172033966}
   m_Layer: 5
   m_Name: more
   m_TagString: Untagged
@@ -204,6 +206,35 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &793124858172033966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2986595955565909424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4613024824962440404}
+          m_TargetAssemblyTypeName: SetupAlarmPanel, Assembly-CSharp
+          m_MethodName: ExpandAlarmPanel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5240117277913479959
 GameObject:
   m_ObjectHideFlags: 0
