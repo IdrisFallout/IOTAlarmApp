@@ -214,51 +214,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157034832}
   m_CullTransparentMesh: 1
---- !u!1 &264187087
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 264187088}
-  - component: {fileID: 264187089}
-  m_Layer: 0
-  m_Name: ScriptRunner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &264187088
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264187087}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 363.46405, y: 1332.1522, z: 0.37559688}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &264187089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264187087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe502c873140674479843edec7f16e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 1645674656}
 --- !u!1 &357699188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addWhere: {fileID: 1807644633}
   addWhat: {fileID: 8006476753074281047, guid: ab267565c7c4cdf4d8258b230e2c8bbb, type: 3}
+  isExpanded: 0
 --- !u!1 &1612243905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1807644634}
   - component: {fileID: 1807644636}
+  - component: {fileID: 1807644637}
   m_Layer: 5
   m_Name: alarm-app-panel
   m_TagString: Untagged
@@ -1404,6 +1361,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807644633}
   m_CullTransparentMesh: 1
+--- !u!114 &1807644637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807644633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0a819befcde404dba97173c87926c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMeshPro: {fileID: 1645674656}
 --- !u!1 &1862586043
 GameObject:
   m_ObjectHideFlags: 0
