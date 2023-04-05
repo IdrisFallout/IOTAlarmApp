@@ -130,7 +130,6 @@ public class SetupAlarm : MonoBehaviour
         myTime[0] = finalHour;
         myTime[1] = finalMinute;
         myTime[2] = finalAmPm;
-        Debug.Log(myTime[0] + " " + myTime[1] + " " + myTime[2]);
         return myTime;
     }
 

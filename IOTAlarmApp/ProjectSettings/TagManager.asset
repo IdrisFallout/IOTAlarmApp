@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AddAlarm
   - Alarm-scroll-content
+  - setup-alarm
   layers:
   - Default
   - TransparentFX
