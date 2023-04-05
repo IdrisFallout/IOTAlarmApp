@@ -20,15 +20,34 @@ public class SetupAlarm : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI errorText;
+    
+    [SerializeField]
+    private TMP_Dropdown amPmDropdown;
+
+    private DateTime time;
 
     private void Start()
     {
         addAlarm = GameObject.FindGameObjectWithTag("AddAlarm").GetComponent<AddAlarm>();
         addAlarm.isExpanded = true;
+        time = System.DateTime.Now;
         // change placeholder
-        DateTime time = System.DateTime.Now;
         hourInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("hh");
         minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("mm");
+        
+        // print value in dropdown
+        Debug.Log(amPmDropdown.options[amPmDropdown.value].text);
+        
+        
+        if (time.ToString("tt") == "AM")
+        {
+            // select index 0 in dropdown
+            amPmDropdown.value = 0;
+        }else if (time.ToString("tt") == "PM")
+        {
+            // select index 1 in dropdown
+            amPmDropdown.value = 1;
+        }
     }
 
     public void Cancel()
