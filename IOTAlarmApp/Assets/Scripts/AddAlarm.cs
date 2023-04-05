@@ -7,10 +7,11 @@ public class AddAlarm : MonoBehaviour
     public GameObject addWhere;
     public GameObject addWhat;
     public bool isExpanded = false;
+
+    [HideInInspector] private GameObject setAlarmPanel;
     public void AddMyAlarm()
     {
         if (isExpanded) return;
-        GameObject newPanel = Instantiate(addWhat, addWhere.transform);
-        isExpanded = true;
+        setAlarmPanel = Instantiate(addWhat, addWhere.transform);
     }
 }

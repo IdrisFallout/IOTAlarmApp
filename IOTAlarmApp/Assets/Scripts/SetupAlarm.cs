@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 
 
@@ -13,15 +14,28 @@ public class SetupAlarm : MonoBehaviour
     
     [SerializeField]
     private TMP_InputField minuteInput;
-
+    
+    public AddAlarm addAlarm;
 
     private void Start()
     {
+        addAlarm = GameObject.FindGameObjectWithTag("AddAlarm").GetComponent<AddAlarm>();
+        addAlarm.isExpanded = true;
         // change placeholder
-        hourInput.placeholder.GetComponent<TextMeshProUGUI>().text = "Hour";
-        minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = "Minute";
+        DateTime time = System.DateTime.Now;
+        hourInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("hh");
+        minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("mm");
     }
 
+    private void Cancel()
+    {
+        
+    }
+
+    private void Ok()
+    {
+        
+    }
 
     // [SerializeField]
     // private TextMeshProUGUI TimeText;
