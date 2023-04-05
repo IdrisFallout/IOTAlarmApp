@@ -15,7 +15,11 @@ public class SetupAlarm : MonoBehaviour
     [SerializeField]
     private TMP_InputField minuteInput;
     
+    [HideInInspector]
     public AddAlarm addAlarm;
+    
+    [SerializeField]
+    private TextMeshProUGUI errorText;
 
     private void Start()
     {
@@ -27,14 +31,56 @@ public class SetupAlarm : MonoBehaviour
         minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("mm");
     }
 
-    private void Cancel()
+    public void Cancel()
     {
-        
+        Destroy(addAlarm.setAlarmPanel);
+        addAlarm.isExpanded = false;
     }
 
-    private void Ok()
+    public void Ok()
     {
-        
+        String hour = "", minute = "";
+        if (hourInput.text == "" || minuteInput.text == "")
+        {
+            hour = hourInput.placeholder.GetComponent<TextMeshProUGUI>().text.ToString();
+            minute = minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text.ToString();
+        }
+        else
+        {
+            String hourString = hourInput.text;
+            String minuteString = minuteInput.text;
+
+            int hourInt = 0, minuteInt = 0;
+
+            if (!int.TryParse(hourString, out hourInt) || !int.TryParse(minuteString, out minuteInt))
+            {
+                errorText.text = "Invalid Time Input";
+                return;
+            }
+
+            if (!IsValidTime(hourInt, minuteInt))
+            {
+                errorText.text = "Invalid Time Input";
+                return;
+            }
+            errorText.text = "";
+            hour = hourInt.ToString();
+            minute = minuteInt.ToString();
+        }
+        Debug.Log(hour);
+        Debug.Log(minute);
+        Destroy(addAlarm.setAlarmPanel);
+        addAlarm.isExpanded = false;
+    }
+
+
+    public bool IsValidTime(int hour, int minute)
+    {
+        if (hour < 1 || hour > 12 || minute < 0 || minute > 59)
+        {
+            return false;
+        }
+        return true;
     }
 
     // [SerializeField]

@@ -8,7 +8,7 @@ public class AddAlarm : MonoBehaviour
     public GameObject addWhat;
     public bool isExpanded = false;
 
-    [HideInInspector] private GameObject setAlarmPanel;
+    [HideInInspector] public GameObject setAlarmPanel;
     public void AddMyAlarm()
     {
         if (isExpanded) return;
