@@ -33,7 +33,6 @@ public class AlarmObject : MonoBehaviour
     private void Start()
     {
         // Assuming the Image component is attached to the same GameObject as this script
-        image = GetComponent<Image>();
         setupAlarm = GameObject.FindGameObjectWithTag("setup-alarm").GetComponent<SetupAlarm>();
         String[] time = setupAlarm.GetTime();
         timeText.text = time[0] + ":" + time[1];
