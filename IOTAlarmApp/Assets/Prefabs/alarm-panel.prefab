@@ -77,58 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &2315789025634636746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6023214001808784702}
-  - component: {fileID: 4613024824962440404}
-  m_Layer: 5
-  m_Name: SetupAlarmPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6023214001808784702
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2315789025634636746}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5240117278005258279}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 113.98}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4613024824962440404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2315789025634636746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a721178d2a3ca54c8caea342524cfba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeText: {fileID: 5240117278925794282}
-  AmPmText: {fileID: 5240117278047150548}
-  AlarmPanel: {fileID: 5240117278005258272}
 --- !u!1 &2986595955565909424
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +171,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4613024824962440404}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: SetupAlarmPanel, Assembly-CSharp
           m_MethodName: ExpandAlarmPanel
           m_Mode: 1
@@ -246,7 +194,6 @@ GameObject:
   - component: {fileID: 5240117277913479958}
   - component: {fileID: 5240117277913479956}
   - component: {fileID: 5240117277913479957}
-  - component: {fileID: 3806360232804562779}
   - component: {fileID: 1867381160316791551}
   m_Layer: 5
   m_Name: switch
@@ -313,22 +260,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3806360232804562779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240117277913479959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c6e760763ae62409f422ee870fda6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 5240117277913479957}
-  switchOn: {fileID: 21300000, guid: 5e3a25e12422d65409ceccfc39c939c1, type: 3}
-  switchOff: {fileID: 21300000, guid: e3be625afe994d1469714904b8362f57, type: 3}
-  textMeshPro: {fileID: 5240117278243573377}
 --- !u!114 &1867381160316791551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,9 +277,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3806360232804562779}
+        - m_Target: {fileID: 5433020567988009679}
           m_TargetAssemblyTypeName: AlarmObject, Assembly-CSharp
-          m_MethodName: ToggleImageSprite
+          m_MethodName: AlarmToggle
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -368,6 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5240117278005258279}
   - component: {fileID: 5240117278005258277}
+  - component: {fileID: 5433020567988009679}
   m_Layer: 5
   m_Name: alarm-panel
   m_TagString: Untagged
@@ -393,7 +325,6 @@ RectTransform:
   - {fileID: 7787814303514886220}
   - {fileID: 5847340120731280174}
   - {fileID: 2199849525770828160}
-  - {fileID: 6023214001808784702}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -410,6 +341,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5240117278005258272}
   m_CullTransparentMesh: 1
+--- !u!114 &5433020567988009679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5240117278005258272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c6e760763ae62409f422ee870fda6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 5240117277913479957}
+  switchOn: {fileID: 21300000, guid: 5e3a25e12422d65409ceccfc39c939c1, type: 3}
+  switchOff: {fileID: 21300000, guid: e3be625afe994d1469714904b8362f57, type: 3}
+  textMeshPro: {fileID: 5240117278243573377}
+  timeText: {fileID: 5240117278925794282}
+  amPmText: {fileID: 5240117278047150548}
 --- !u!1 &5240117278047150550
 GameObject:
   m_ObjectHideFlags: 0

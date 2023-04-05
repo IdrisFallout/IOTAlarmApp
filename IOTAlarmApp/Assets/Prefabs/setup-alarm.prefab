@@ -2561,7 +2561,7 @@ GameObject:
   - component: {fileID: 5018199838980921824}
   m_Layer: 5
   m_Name: setup-alarm
-  m_TagString: Untagged
+  m_TagString: setup-alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2648,6 +2648,8 @@ MonoBehaviour:
   addAlarm: {fileID: 0}
   errorText: {fileID: 792210952365733415}
   amPmDropdown: {fileID: 6777056245456603124}
+  addWhat: {fileID: 5240117278005258272, guid: 1ee1b0f2dec2646498dc461923899b50, type: 3}
+  AlarmPanel: {fileID: 0}
 --- !u!1 &8569251180075772142
 GameObject:
   m_ObjectHideFlags: 0

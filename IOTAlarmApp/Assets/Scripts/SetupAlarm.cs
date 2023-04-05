@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class SetupAlarm : MonoBehaviour
 {
+    [Header("Setup Widget")]
     [SerializeField]
     private TMP_InputField hourInput;
     
@@ -25,20 +26,25 @@ public class SetupAlarm : MonoBehaviour
     private TMP_Dropdown amPmDropdown;
 
     private DateTime time;
+    
+    [Header("Add Alarm to list")]
+    private GameObject addWhere;
+    public GameObject addWhat;
+    
+    [HideInInspector] public GameObject AlarmPanel;
+    
+    String finalHour = "12", finalMinute = "00", finalAmPm = "AM";
 
     private void Start()
     {
         addAlarm = GameObject.FindGameObjectWithTag("AddAlarm").GetComponent<AddAlarm>();
+        addWhere = GameObject.FindGameObjectWithTag("Alarm-scroll-content");
         addAlarm.isExpanded = true;
         time = System.DateTime.Now;
         // change placeholder
         hourInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("hh");
         minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("mm");
-        
-        // print value in dropdown
-        Debug.Log(amPmDropdown.options[amPmDropdown.value].text);
-        
-        
+
         if (time.ToString("tt") == "AM")
         {
             // select index 0 in dropdown
@@ -59,7 +65,7 @@ public class SetupAlarm : MonoBehaviour
     public void Ok()
     {
         String hour = "", minute = "";
-        if (hourInput.text == "" || minuteInput.text == "")
+        if (hourInput.text == "" && minuteInput.text == "")
         {
             hour = hourInput.placeholder.GetComponent<TextMeshProUGUI>().text.ToString();
             minute = minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text.ToString();
@@ -86,10 +92,7 @@ public class SetupAlarm : MonoBehaviour
             hour = hourInt.ToString();
             minute = minuteInt.ToString();
         }
-        Debug.Log(hour);
-        Debug.Log(minute);
-        Destroy(addAlarm.setAlarmPanel);
-        addAlarm.isExpanded = false;
+        CreateAlarm(hour, minute, amPmDropdown.options[amPmDropdown.value].text);
     }
 
 
@@ -100,6 +103,35 @@ public class SetupAlarm : MonoBehaviour
             return false;
         }
         return true;
+    }
+    
+    public void CreateAlarm(String hour, String minute, String amPm)
+    {
+        finalHour = FormatTime(hour);
+        finalMinute = FormatTime(minute);
+        finalAmPm = amPm;
+        Destroy(addAlarm.setAlarmPanel);
+        addAlarm.isExpanded = false;
+        AlarmPanel = Instantiate(addWhat, addWhere.transform);
+    }
+    
+    public String FormatTime(String time)
+    {
+        if (time.Length == 1)
+        {
+            time = "0" + time;
+        }
+        return time;
+    }
+
+    public String[] GetTime()
+    {
+        String[] myTime = new String[3];
+        myTime[0] = finalHour;
+        myTime[1] = finalMinute;
+        myTime[2] = finalAmPm;
+        Debug.Log(myTime[0] + " " + myTime[1] + " " + myTime[2]);
+        return myTime;
     }
 
     // [SerializeField]

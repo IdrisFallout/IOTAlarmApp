@@ -738,7 +738,7 @@ GameObject:
   - component: {fileID: 1429582248}
   m_Layer: 5
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: Alarm-scroll-content
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -973,6 +973,7 @@ MonoBehaviour:
   addWhere: {fileID: 1807644633}
   addWhat: {fileID: 8006476753074281047, guid: ab267565c7c4cdf4d8258b230e2c8bbb, type: 3}
   isExpanded: 0
+  setAlarmPanel: {fileID: 0}
 --- !u!1 &1612243905
 GameObject:
   m_ObjectHideFlags: 0
