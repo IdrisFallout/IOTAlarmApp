@@ -57,7 +57,7 @@ namespace WakaTime {
 
       ProjectName = GetProjectName();
 
-      if (_debug) Debug.Log("<WakaTime> Initializing...");
+      // if (_debug) Debug.Log("<WakaTime> Initializing...");
 
       SendHeartbeat();
       LinkCallbacks();
@@ -125,7 +125,7 @@ namespace WakaTime {
     }
 
     static void SendHeartbeat(bool fromSave = false) {
-      if (_debug) Debug.Log("<WakaTime> Sending heartbeat...");
+      // if (_debug) Debug.Log("<WakaTime> Sending heartbeat...");
 
       var currentScene = EditorSceneManager.GetActiveScene().path;
       var file = currentScene != string.Empty
@@ -153,8 +153,8 @@ namespace WakaTime {
             return;
           }
 
-          if (_debug)
-            Debug.Log("<WakaTime> Got response\n" + request.downloadHandler.text);
+          // if (_debug)
+          //   Debug.Log("<WakaTime> Got response\n" + request.downloadHandler.text);
           var response =
             JsonUtility.FromJson<Response<HeartbeatResponse>>(
               request.downloadHandler.text);
@@ -170,7 +170,7 @@ namespace WakaTime {
             }
           }
           else {
-            if (_debug) Debug.Log("<WakaTime> Sent heartbeat!");
+            // if (_debug) Debug.Log("<WakaTime> Sent heartbeat!");
             _lastHeartbeat = response.data;
           }
         };
