@@ -29,11 +29,19 @@ public class AlarmObject : MonoBehaviour
     private TextMeshProUGUI amPmText;
 
     private SetupAlarm setupAlarm;
+    
+    [HideInInspector] public GameObject addWhere;
+    [Header("Modify Alarm")]
+    public GameObject addWhat;
+    [HideInInspector] public bool isExpanded = false;
+
+    [HideInInspector] public GameObject setAlarmPanel;
 
     private void Start()
     {
         // Assuming the Image component is attached to the same GameObject as this script
         setupAlarm = GameObject.FindGameObjectWithTag("setup-alarm").GetComponent<SetupAlarm>();
+        addWhere = GameObject.FindGameObjectWithTag("alarm-app-panel");
         String[] time = setupAlarm.GetTime();
         timeText.text = time[0] + ":" + time[1];
         amPmText.text = time[2];
@@ -56,5 +64,11 @@ public class AlarmObject : MonoBehaviour
         // Toggle the boolean flag
         isSwitchedOn = !isSwitchedOn;
         
+    }
+    
+    public void AddMyAlarm()
+    {
+        if (isExpanded) return;
+        setAlarmPanel = Instantiate(addWhat, addWhere.transform);
     }
 }
