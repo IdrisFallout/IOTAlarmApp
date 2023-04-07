@@ -8,6 +8,8 @@ TagManager:
   - Alarm-scroll-content
   - setup-alarm
   - alarm-app-panel
+  - add-button
+  - modify-alarm
   layers:
   - Default
   - TransparentFX

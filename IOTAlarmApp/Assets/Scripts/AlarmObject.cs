@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class AlarmObject : MonoBehaviour
 {
@@ -29,12 +30,11 @@ public class AlarmObject : MonoBehaviour
     private TextMeshProUGUI amPmText;
 
     private SetupAlarm setupAlarm;
-    
-    [HideInInspector] public GameObject addWhere;
     [Header("Modify Alarm")]
+    // [HideInInspector]
+    private GameObject addWhere;
     public GameObject addWhat;
     [HideInInspector] public bool isExpanded = false;
-
     [HideInInspector] public GameObject setAlarmPanel;
 
     private void Start()
@@ -65,9 +65,10 @@ public class AlarmObject : MonoBehaviour
         isSwitchedOn = !isSwitchedOn;
         
     }
-    
-    public void AddMyAlarm()
+
+    public void ModifyMyAlarm()
     {
+        Debug.Log("Modify");
         if (isExpanded) return;
         setAlarmPanel = Instantiate(addWhat, addWhere.transform);
     }
