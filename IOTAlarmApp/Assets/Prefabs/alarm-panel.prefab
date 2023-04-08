@@ -104,8 +104,8 @@ RectTransform:
   m_GameObject: {fileID: 2986595955565909424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.11, y: 4.11, z: 4.11}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5240117278005258279}
   m_RootOrder: 3
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 746, y: -186.72998}
-  m_SizeDelta: {x: 73.6629, y: 48.1622}
+  m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5535012304971083298
 CanvasRenderer:
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc67da08e89009e44827b0a9f741a0c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ec9c013211331b468d089f20b071ea3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -329,9 +329,6 @@ MonoBehaviour:
   textMeshPro: {fileID: 5240117278243573377}
   timeText: {fileID: 5240117278925794282}
   amPmText: {fileID: 5240117278047150548}
-  addWhat: {fileID: 6406739702053742606, guid: a5aea4bd0a0585940af2670c9b8a3578, type: 3}
-  isExpanded: 0
-  setAlarmPanel: {fileID: 0}
 --- !u!1 &5240117278047150550
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +340,6 @@ GameObject:
   - component: {fileID: 5240117278047150549}
   - component: {fileID: 5240117278047150539}
   - component: {fileID: 5240117278047150548}
-  - component: {fileID: 5878950177671519911}
   m_Layer: 5
   m_Name: AM/PM
   m_TagString: Untagged
@@ -470,35 +466,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5878950177671519911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240117278047150550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5433020567988009679}
-          m_TargetAssemblyTypeName: AlarmObject, Assembly-CSharp
-          m_MethodName: ModifyMyAlarm
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &5240117278243573379
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +612,6 @@ GameObject:
   - component: {fileID: 5240117278925794283}
   - component: {fileID: 5240117278925794281}
   - component: {fileID: 5240117278925794282}
-  - component: {fileID: 4104422294979366546}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -770,35 +736,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4104422294979366546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240117278925794292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5433020567988009679}
-          m_TargetAssemblyTypeName: AlarmObject, Assembly-CSharp
-          m_MethodName: ModifyMyAlarm
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &7944293153281797294
 GameObject:
   m_ObjectHideFlags: 0

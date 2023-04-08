@@ -30,18 +30,11 @@ public class AlarmObject : MonoBehaviour
     private TextMeshProUGUI amPmText;
 
     private SetupAlarm setupAlarm;
-    [Header("Modify Alarm")]
-    // [HideInInspector]
-    private GameObject addWhere;
-    public GameObject addWhat;
-    [HideInInspector] public bool isExpanded = false;
-    [HideInInspector] public GameObject setAlarmPanel;
 
     private void Start()
     {
         // Assuming the Image component is attached to the same GameObject as this script
         setupAlarm = GameObject.FindGameObjectWithTag("setup-alarm").GetComponent<SetupAlarm>();
-        addWhere = GameObject.FindGameObjectWithTag("alarm-app-panel");
         String[] time = setupAlarm.GetTime();
         timeText.text = time[0] + ":" + time[1];
         amPmText.text = time[2];
@@ -66,12 +59,6 @@ public class AlarmObject : MonoBehaviour
         
     }
 
-    public void ModifyMyAlarm()
-    {
-        if (isExpanded) return;
-        setAlarmPanel = Instantiate(addWhat, addWhere.transform);
-    }
-    
     public void GetTime()
     {
         // GameObject timeObject = gameObject.transform.GetChild(0).gameObject;
