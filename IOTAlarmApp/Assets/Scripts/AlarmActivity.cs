@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,37 +11,56 @@ public class AlarmActivity : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
+    
+    private const string endpointUrl = "http://localhost:5000/endpoint";
 
     private void Update()
     {
         textMeshPro.text = System.DateTime.Now.ToString("hh:mm:ss");
     }
 
-    IEnumerator GetResponse(string url)
+    private IEnumerator SendNetworkRequest()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        // Prepare data as a dictionary
+        Dictionary<string, object> data = new Dictionary<string, object>
         {
-            yield return webRequest.SendWebRequest();
+            { "name", "John" },
+            { "age", 30 },
+            { "city", "New York" }
+        };
 
-            if (webRequest.result == UnityWebRequest.Result.Success)
-            {
-                // Read the response content as text
-                string responseBody = webRequest.downloadHandler.text;
-                Debug.Log("Response: " + responseBody);
-            }
-            else
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
+        // Convert dictionary to JSON string
+        string json = JsonUtility.ToJson(data);
+        byte[] postData = Encoding.UTF8.GetBytes(json);
+
+        // Create UnityWebRequest with POST method
+        UnityWebRequest request = UnityWebRequest.Post(endpointUrl, "");
+        request.uploadHandler = new UploadHandlerRaw(postData);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        // Send the request asynchronously
+        yield return request.SendWebRequest();
+
+        // Check for errors
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+        else
+        {
+            Debug.Log("Response: " + request.downloadHandler.text);
         }
     }
+
 
     public void SendToCloud()
     {
         // Debug.Log(PackageAlarmJson()[0]);
-        PrintJsonObjectsList(PackageAlarmJson());
-        // string url = "https://jsonplaceholder.typicode.com/todos/1";
-        // StartCoroutine(GetResponse(url));
+        // PrintJsonObjectsList(PackageAlarmJson());
+        // string url = "http://localhost:5000/endpoint";
+        // StartCoroutine(GetResponse(url, PackageAlarmJson()));
+        StartCoroutine(SendNetworkRequest());
     }
     public class MyAlarm
     {
