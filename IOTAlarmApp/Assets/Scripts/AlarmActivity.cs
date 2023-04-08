@@ -37,34 +37,62 @@ public class AlarmActivity : MonoBehaviour
 
     public void SendToCloud()
     {
-        Debug.Log(PackageAlarmJson()["time"]);
+        // Debug.Log(PackageAlarmJson()[0]);
+        PrintJsonObjectsList(PackageAlarmJson());
         // string url = "https://jsonplaceholder.typicode.com/todos/1";
         // StartCoroutine(GetResponse(url));
     }
     public class MyAlarm
     {
-        public int Number { get; set; }
-        public string Time { get; set; }
-        public bool State { get; set; }
+        public int index { get; set; }
+        public string time { get; set; }
+        public bool state { get; set; }
     }
     
-    public static Dictionary<string, object> PackageAlarmJson()
+    public static List<Dictionary<string, object>> PackageAlarmJson()
     {
+        List<Dictionary<string, object>> jsonAlarmObjectsList = new List<Dictionary<string, object>>();
+        
         MyAlarm myAlarm = new MyAlarm
         {
-            Number = 1,
-            Time = "12:00 AM",
-            State = true
+            index = 0,
+            time = "12:00 AM",
+            state = true
+        };
+        
+        MyAlarm myAlarm1 = new MyAlarm
+        {
+            index = 1,
+            time = "08:00 PM",
+            state = false
         };
         
         Dictionary<string, object> jsonAlarmObject = new Dictionary<string, object>
         {
-            { "number", myAlarm.Number },
-            { "time", myAlarm.Time },
-            { "state", myAlarm.State }
+            { "index", myAlarm.index },
+            { "time", myAlarm.time },
+            { "state", myAlarm.state }
         };
-
-        return jsonAlarmObject;
+        
+        Dictionary<string, object> jsonAlarmObject1 = new Dictionary<string, object>
+        {
+            { "index", myAlarm1.index },
+            { "time", myAlarm1.time },
+            { "state", myAlarm1.state }
+        };
+        
+        jsonAlarmObjectsList.Add(jsonAlarmObject);
+        jsonAlarmObjectsList.Add(jsonAlarmObject1);
+        
+        return jsonAlarmObjectsList;
+    }
+    
+    public static void PrintJsonObjectsList(List<Dictionary<string, object>> jsonObjectsList)
+    {
+        foreach (var jsonObject in jsonObjectsList)
+        {
+            Debug.Log("{ index : " + jsonObject["index"] + ", time : " + jsonObject["time"] + ", state : " + jsonObject["state"] + " }");
+        }
     }
     
 }
