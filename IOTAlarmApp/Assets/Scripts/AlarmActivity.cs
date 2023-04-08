@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Threading;
+using UnityEngine.Networking;
 
 public class AlarmActivity : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class AlarmActivity : MonoBehaviour
     
     private Thread syncThread;
     private bool isSyncing = false;
-    System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+    System.Diagnostics.Stopwatch stopwatch;
 
     private void Update()
     {
@@ -24,7 +25,6 @@ public class AlarmActivity : MonoBehaviour
     // run this method in a separate thread
     public void SyncToCloud()
     {
-        stopwatch.Start();
         Debug.Log("Syncing to cloud");
     }
 
@@ -41,6 +41,8 @@ public class AlarmActivity : MonoBehaviour
         // Create and start a new thread for the SyncToCloud function
         syncThread = new Thread(SyncToCloud);
         syncThread.Start();
+        stopwatch = new System.Diagnostics.Stopwatch();
+        stopwatch.Start();
         isSyncing = true;
     }
 
