@@ -58,10 +58,9 @@ public class AlarmObject : MonoBehaviour
         isSwitchedOn = !isSwitchedOn;
         
     }
-
-    public void GetTime()
+    
+    public void DeleteAlarm()
     {
-        // GameObject timeObject = gameObject.transform.GetChild(0).gameObject;
-        Debug.Log("Time: " + timeText.text + " " + amPmText.text);
+        Destroy(gameObject);
     }
 }
