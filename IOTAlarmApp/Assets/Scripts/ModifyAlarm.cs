@@ -27,16 +27,21 @@ public class ModifyAlarm : MonoBehaviour
     [HideInInspector] public GameObject AlarmPanel;
     
     String finalHour = "12", finalMinute = "00", finalAmPm = "AM";
+    
+    public AlarmObject alarmObject;
 
     private void Start()
     {
-        Debug.Log("ModifyAlarm Start");
+        Debug.Log(transform.parent.gameObject.name);
         addAlarm = GameObject.FindGameObjectWithTag("AddAlarm").GetComponent<AddAlarm>();
         addAlarm.isExpanded = true;
         time = System.DateTime.Now;
         // change placeholder
         hourInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("hh");
         minuteInput.placeholder.GetComponent<TextMeshProUGUI>().text = time.ToString("mm");
+        
+        alarmObject = GetComponent<AlarmObject>();
+        alarmObject.GetTime();
 
         if (time.ToString("tt") == "AM")
         {

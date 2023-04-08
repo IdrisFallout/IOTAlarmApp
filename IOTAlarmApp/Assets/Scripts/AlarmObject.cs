@@ -68,8 +68,13 @@ public class AlarmObject : MonoBehaviour
 
     public void ModifyMyAlarm()
     {
-        Debug.Log("Modify");
         if (isExpanded) return;
         setAlarmPanel = Instantiate(addWhat, addWhere.transform);
+    }
+    
+    public void GetTime()
+    {
+        // GameObject timeObject = gameObject.transform.GetChild(0).gameObject;
+        Debug.Log("Time: " + timeText.text + " " + amPmText.text);
     }
 }
