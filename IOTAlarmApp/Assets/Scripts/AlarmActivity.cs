@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,56 +12,63 @@ public class AlarmActivity : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
-    
-    private const string endpointUrl = "http://localhost:5000/endpoint";
 
     private void Update()
     {
         textMeshPro.text = System.DateTime.Now.ToString("hh:mm:ss");
     }
 
-    private IEnumerator SendNetworkRequest()
+    private void SendData(string url, List<Dictionary<string, object>> dataList)
     {
-        // Prepare data as a dictionary
-        Dictionary<string, object> data = new Dictionary<string, object>
-        {
-            { "name", "John" },
-            { "age", 30 },
-            { "city", "New York" }
-        };
+        // Serialize the list of dictionaries to JSON string
+        string json = JsonConvert.SerializeObject(dataList);
 
-        // Convert dictionary to JSON string
-        string json = JsonUtility.ToJson(data);
+        // Convert the JSON string to byte array
         byte[] postData = Encoding.UTF8.GetBytes(json);
 
-        // Create UnityWebRequest with POST method
-        UnityWebRequest request = UnityWebRequest.Post(endpointUrl, "");
-        request.uploadHandler = new UploadHandlerRaw(postData);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        // Send the request asynchronously
-        yield return request.SendWebRequest();
-
-        // Check for errors
-        if (request.isNetworkError || request.isHttpError)
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, "POST"))
         {
-            Debug.LogError("Error: " + request.error);
-        }
-        else
-        {
-            Debug.Log("Response: " + request.downloadHandler.text);
+            // Set the request body with the JSON data
+            webRequest.uploadHandler = new UploadHandlerRaw(postData);
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            // Send the web request and wait for response
+            webRequest.SendWebRequest();
+            while (!webRequest.isDone)
+            {
+                // Wait for the request to complete
+                Thread.Sleep(16); // Sleep for 16ms (approx. 1 frame at 60fps)
+            }
+
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                // Read the response content as text
+                string responseBody = webRequest.downloadHandler.text;
+                Debug.Log("Response: " + responseBody);
+            }
+            else
+            {
+                Debug.Log("Error: " + webRequest.error);
+            }
+            webRequest.Dispose();
         }
     }
-
-
     public void SendToCloud()
     {
         // Debug.Log(PackageAlarmJson()[0]);
         // PrintJsonObjectsList(PackageAlarmJson());
         // string url = "http://localhost:5000/endpoint";
         // StartCoroutine(GetResponse(url, PackageAlarmJson()));
-        StartCoroutine(SendNetworkRequest());
+        // StartCoroutine(SendData("http://localhost:5000/endpoint", PackageAlarmJson()));
+        StartSendingData("http://localhost:5000/endpoint", PackageAlarmJson());
+        // StartCoroutine(SendData("http://localhost:5000/endpoint", PackageAlarmJson()));
+    }
+    
+    public void StartSendingData(string url, List<Dictionary<string, object>> dataList)
+    {
+        // Start a new thread for sending data
+        Thread sendDataThread = new Thread(() => SendData(url, dataList));
+        sendDataThread.Start();
     }
     public class MyAlarm
     {
