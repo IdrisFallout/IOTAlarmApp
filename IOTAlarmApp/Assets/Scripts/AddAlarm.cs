@@ -20,6 +20,7 @@ public class AddAlarm : MonoBehaviour
     
     public void AddMyAlarm()
     {
+        if(alarmAppPanel.isStartup) return;
         if (isExpanded) return;
         setAlarmPanel = Instantiate(addWhat, addWhere.transform);
         

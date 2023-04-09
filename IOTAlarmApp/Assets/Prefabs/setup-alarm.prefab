@@ -924,7 +924,6 @@ GameObject:
   - component: {fileID: 7628113407099424595}
   - component: {fileID: 4484187620002403455}
   - component: {fileID: 6423829732576473019}
-  - component: {fileID: 5527982851676230829}
   m_Layer: 5
   m_Name: hour
   m_TagString: Untagged
@@ -1089,18 +1088,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &5527982851676230829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3451361966218629467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3a4aa8f5e2c334f9d7cccc04ed9ede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3590992906857324661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,7 +2011,6 @@ GameObject:
   - component: {fileID: 2502052181650136494}
   - component: {fileID: 3822413752360990005}
   - component: {fileID: 3189065634101177415}
-  - component: {fileID: 5989423222008905364}
   m_Layer: 5
   m_Name: minute
   m_TagString: Untagged
@@ -2189,18 +2175,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &5989423222008905364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6113647105375139548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3a4aa8f5e2c334f9d7cccc04ed9ede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7023448285743795514
 GameObject:
   m_ObjectHideFlags: 0

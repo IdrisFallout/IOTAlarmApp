@@ -30,9 +30,7 @@ public class SetupAlarm : MonoBehaviour
     [Header("Add Alarm to list")]
     private GameObject addWhere;
     public GameObject addWhat;
-    
-    [HideInInspector] public GameObject AlarmPanel;
-    
+
     String finalHour = "12", finalMinute = "00", finalAmPm = "AM";
 
     private void Start()
@@ -112,7 +110,11 @@ public class SetupAlarm : MonoBehaviour
         finalAmPm = amPm;
         Destroy(addAlarm.setAlarmPanel);
         addAlarm.isExpanded = false;
-        AlarmPanel = Instantiate(addWhat, addWhere.transform);
+        GameObject alarmPanel = Instantiate(addWhat, addWhere.transform);
+        AlarmObject alarmPanelScript = alarmPanel.GetComponent<AlarmObject>();
+        String[] theTime = GetTime();
+        alarmPanelScript.timeText.text = theTime[0] + ":" + theTime[1];
+        alarmPanelScript.amPmText.text = theTime[2];
     }
     
     public String FormatTime(String time)
