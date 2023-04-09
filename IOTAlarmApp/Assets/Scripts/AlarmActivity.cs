@@ -33,10 +33,13 @@ public class AlarmActivity : MonoBehaviour
 
     [SerializeField]
     private Sprite notSynced;
+    
+    [HideInInspector] public bool isStartup = true;
 
     private void Start()
     {
         LoadAlarmsFromCloud();
+        isStartup = false;
     }
 
     private void Update()

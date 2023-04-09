@@ -61,6 +61,7 @@ public class AlarmObject : MonoBehaviour
         // Toggle the boolean flag
         isSwitchedOn = !isSwitchedOn;
         
+        if(alarmAppPanel.isStartup) return;
         alarmAppPanel.isSynced = false;
         alarmAppPanel.CheckSync();
     }
@@ -68,6 +69,7 @@ public class AlarmObject : MonoBehaviour
     public void DeleteAlarm()
     {
         Destroy(gameObject);
+        if(alarmAppPanel.isStartup) return;
         alarmAppPanel.isSynced = false;
         alarmAppPanel.CheckSync();
     }
