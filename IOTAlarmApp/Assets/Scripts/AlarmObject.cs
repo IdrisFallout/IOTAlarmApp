@@ -21,13 +21,14 @@ public class AlarmObject : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
 
-    private bool isSwitchedOn = true;
+    [HideInInspector]
+    public bool isSwitchedOn = true;
     
     [SerializeField]
-    private TextMeshProUGUI timeText;
+    public TextMeshProUGUI timeText;
     
     [SerializeField]
-    private TextMeshProUGUI amPmText;
+    public TextMeshProUGUI amPmText;
 
     private SetupAlarm setupAlarm;
 

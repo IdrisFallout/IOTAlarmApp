@@ -10,6 +10,8 @@ public class AlarmActivity : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
+    
+    public GameObject availableAlarms;
 
     private void Update()
     {
@@ -28,15 +30,28 @@ public class AlarmActivity : MonoBehaviour
         public bool state { get; set; }
     }
     
+    public class ResponseJson
+    {
+        public string message { get; set; }
+        public string status { get; set; }
+    }
+    
     public string GetAlarmJson()
     {
-        List<MyAlarmObject> myObjects = new List<MyAlarmObject>
+        List<MyAlarmObject> myObjects = new List<MyAlarmObject>();
+        
+        for (int i = 0; i < availableAlarms.transform.childCount; i++)
         {
-            new MyAlarmObject { index = 0, time = "12:30 PM", state = true },
-            new MyAlarmObject { index = 1, time = "3:45 PM", state = false },
-            new MyAlarmObject { index = 2, time = "6:15 AM", state = true }
-        };
-
+            GameObject child = availableAlarms.transform.GetChild(i).gameObject;
+            AlarmObject alarmObject = child.GetComponent<AlarmObject>();
+            string time = alarmObject.timeText.text;
+            bool state = alarmObject.isSwitchedOn;
+            MyAlarmObject myAlarmObject = new MyAlarmObject();
+            myAlarmObject.index = i;
+            myAlarmObject.time = time + " " + alarmObject.amPmText.text;
+            myAlarmObject.state = state;
+            myObjects.Add(myAlarmObject);
+        }
         string json = JsonConvert.SerializeObject(myObjects, Formatting.Indented);
         return json;
     }
@@ -58,7 +73,8 @@ public class AlarmActivity : MonoBehaviour
         else
         {
             string responseContent = request.downloadHandler.text;
-            Debug.Log("Response from server: " + responseContent);
+            ResponseJson responseData = JsonConvert.DeserializeObject<ResponseJson>(responseContent);
+            Debug.Log("Response from server: " + responseData.status + " " + responseData.message);
         }
         
         request.Dispose();
