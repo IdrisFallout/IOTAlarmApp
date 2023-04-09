@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class AlarmActivity : MonoBehaviour
 {
@@ -19,6 +20,19 @@ public class AlarmActivity : MonoBehaviour
     public GameObject addWhat;
     
     private string url = "https://iotalarmapp.onrender.com";
+    
+    [Header("Check if synced")]
+    [HideInInspector]
+    public bool isSynced = false;
+    
+    [SerializeField]
+    private Image syncimage;
+
+    [SerializeField]
+    private Sprite synced;
+
+    [SerializeField]
+    private Sprite notSynced;
 
     private void Start()
     {
@@ -131,8 +145,16 @@ public class AlarmActivity : MonoBehaviour
                 }
                 alarmObjectScript.amPmText.text = amPm;
             }
+            isSynced = true;
+            CheckSync();
         }
 
         request.Dispose();
+    }
+    
+    public void CheckSync()
+    {
+        // Toggle the current sprite
+        syncimage.sprite = isSynced ? synced : notSynced;
     }
 }

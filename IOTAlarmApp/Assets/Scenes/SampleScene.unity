@@ -1410,6 +1410,10 @@ MonoBehaviour:
   availableAlarms: {fileID: 1429582246}
   addWhere: {fileID: 1429582246}
   addWhat: {fileID: 5240117278005258272, guid: 1ee1b0f2dec2646498dc461923899b50, type: 3}
+  isSynced: 0
+  syncimage: {fileID: 1880785913}
+  synced: {fileID: 21300000, guid: d0854ef3b0a8afe439d2240e8285a77b, type: 3}
+  notSynced: {fileID: 21300000, guid: 94c9e3545edafef4fb36ba97cae9f5af, type: 3}
 --- !u!1 &1862586043
 GameObject:
   m_ObjectHideFlags: 0

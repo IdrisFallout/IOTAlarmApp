@@ -31,11 +31,14 @@ public class AlarmObject : MonoBehaviour
     public TextMeshProUGUI amPmText;
 
     private SetupAlarm setupAlarm;
+    
+    private AlarmActivity alarmAppPanel;
 
     private void Start()
     {
         // Assuming the Image component is attached to the same GameObject as this script
         setupAlarm = GameObject.FindGameObjectWithTag("setup-alarm").GetComponent<SetupAlarm>();
+        alarmAppPanel = GameObject.FindGameObjectWithTag("alarm-app-panel").GetComponent<AlarmActivity>();
         String[] time = setupAlarm.GetTime();
         timeText.text = time[0] + ":" + time[1];
         amPmText.text = time[2];
@@ -58,10 +61,14 @@ public class AlarmObject : MonoBehaviour
         // Toggle the boolean flag
         isSwitchedOn = !isSwitchedOn;
         
+        alarmAppPanel.isSynced = false;
+        alarmAppPanel.CheckSync();
     }
     
     public void DeleteAlarm()
     {
         Destroy(gameObject);
+        alarmAppPanel.isSynced = false;
+        alarmAppPanel.CheckSync();
     }
 }
