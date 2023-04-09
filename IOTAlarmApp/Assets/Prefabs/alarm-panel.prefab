@@ -357,6 +357,7 @@ MonoBehaviour:
   switchOn: {fileID: 21300000, guid: 5e3a25e12422d65409ceccfc39c939c1, type: 3}
   switchOff: {fileID: 21300000, guid: e3be625afe994d1469714904b8362f57, type: 3}
   textMeshPro: {fileID: 5240117278243573377}
+  isSwitchedOn: 1
   timeText: {fileID: 5240117278925794282}
   amPmText: {fileID: 5240117278047150548}
 --- !u!1 &5240117278047150550
@@ -562,7 +563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Write the proposal
+  m_text: Alarm is on
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

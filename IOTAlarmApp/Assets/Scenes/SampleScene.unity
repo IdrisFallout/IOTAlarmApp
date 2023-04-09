@@ -1408,6 +1408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 1645674656}
   availableAlarms: {fileID: 1429582246}
+  addWhere: {fileID: 1429582246}
+  addWhat: {fileID: 5240117278005258272, guid: 1ee1b0f2dec2646498dc461923899b50, type: 3}
 --- !u!1 &1862586043
 GameObject:
   m_ObjectHideFlags: 0
