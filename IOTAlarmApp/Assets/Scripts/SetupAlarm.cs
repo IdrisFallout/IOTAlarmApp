@@ -32,11 +32,14 @@ public class SetupAlarm : MonoBehaviour
     public GameObject addWhat;
 
     String finalHour = "12", finalMinute = "00", finalAmPm = "AM";
+    
+    private AlarmActivity alarmAppPanel;
 
     private void Start()
     {
         addAlarm = GameObject.FindGameObjectWithTag("AddAlarm").GetComponent<AddAlarm>();
         addWhere = GameObject.FindGameObjectWithTag("Alarm-scroll-content");
+        alarmAppPanel = GameObject.FindGameObjectWithTag("alarm-app-panel").GetComponent<AlarmActivity>();
         addAlarm.isExpanded = true;
         time = System.DateTime.Now;
         // change placeholder
@@ -115,6 +118,10 @@ public class SetupAlarm : MonoBehaviour
         String[] theTime = GetTime();
         alarmPanelScript.timeText.text = theTime[0] + ":" + theTime[1];
         alarmPanelScript.amPmText.text = theTime[2];
+        
+        if(alarmAppPanel.isStartup) return;
+        alarmAppPanel.isSynced = false;
+        alarmAppPanel.CheckSync();
     }
     
     public String FormatTime(String time)

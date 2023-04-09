@@ -49,7 +49,7 @@ public class AlarmActivity : MonoBehaviour
 
     private void Update()
     {
-        textMeshPro.text = System.DateTime.Now.ToString("hh:mm:ss");
+        textMeshPro.text = System.DateTime.Now.ToString("hh:mm tt");
     }
     
     public void LoadAlarmsFromCloud()
@@ -119,11 +119,6 @@ public class AlarmActivity : MonoBehaviour
             string responseContent = request.downloadHandler.text;
             ResponseJson responseData = JsonConvert.DeserializeObject<ResponseJson>(responseContent);
             string the_response = "Response from server: " + responseData.status + " " + responseData.message;
-            
-            errorPanel = Instantiate(addWhatError, addWhereError.transform);
-            DisplayError displayError = errorPanel.GetComponent<DisplayError>();
-            displayError.DisplayErrorText(the_response);
-            
             Debug.Log(the_response);
             
             isSynced = true;
@@ -140,7 +135,11 @@ public class AlarmActivity : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.LogError("Failed to get alarm data from server. Error: " + request.error);
+            string the_response = "Failed to get alarm data from server. Error: " + request.error;
+            Debug.LogError(the_response);
+            errorPanel = Instantiate(addWhatError, addWhereError.transform);
+            DisplayError displayError = errorPanel.GetComponent<DisplayError>();
+            displayError.DisplayErrorText(the_response);
         }
         else
         {
