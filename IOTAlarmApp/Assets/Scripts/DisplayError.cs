@@ -21,6 +21,7 @@ public class DisplayError : MonoBehaviour
     public void Retry()
     {
         alarmAppPanel.LoadAlarmsFromCloud();
+        Destroy(gameObject);
     }
 
     public void Cancel()

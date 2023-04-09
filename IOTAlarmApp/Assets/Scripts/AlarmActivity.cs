@@ -54,6 +54,7 @@ public class AlarmActivity : MonoBehaviour
     
     public void LoadAlarmsFromCloud()
     {
+        isStartup = true;
         StartCoroutine(GetAlarmCoroutine(url + "/get_alarm"));
     }
     
