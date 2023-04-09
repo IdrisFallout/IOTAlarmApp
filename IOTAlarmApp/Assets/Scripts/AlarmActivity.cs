@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,110 +15,52 @@ public class AlarmActivity : MonoBehaviour
     {
         textMeshPro.text = System.DateTime.Now.ToString("hh:mm:ss");
     }
-
-    private void SendData(string url, List<Dictionary<string, object>> dataList)
-    {
-        // Serialize the list of dictionaries to JSON string
-        string json = JsonConvert.SerializeObject(dataList);
-
-        // Convert the JSON string to byte array
-        byte[] postData = Encoding.UTF8.GetBytes(json);
-
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, "POST"))
-        {
-            // Set the request body with the JSON data
-            webRequest.uploadHandler = new UploadHandlerRaw(postData);
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            // Send the web request and wait for response
-            webRequest.SendWebRequest();
-            while (!webRequest.isDone)
-            {
-                // Wait for the request to complete
-                Thread.Sleep(16); // Sleep for 16ms (approx. 1 frame at 60fps)
-            }
-
-            if (webRequest.result == UnityWebRequest.Result.Success)
-            {
-                // Read the response content as text
-                string responseBody = webRequest.downloadHandler.text;
-                Debug.Log("Response: " + responseBody);
-            }
-            else
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
-            webRequest.Dispose();
-        }
-    }
+    
     public void SendToCloud()
     {
-        // Debug.Log(PackageAlarmJson()[0]);
-        // PrintJsonObjectsList(PackageAlarmJson());
-        // string url = "http://localhost:5000/endpoint";
-        // StartCoroutine(GetResponse(url, PackageAlarmJson()));
-        // StartCoroutine(SendData("http://localhost:5000/endpoint", PackageAlarmJson()));
-        StartSendingData("http://localhost:5000/endpoint", PackageAlarmJson());
-        // StartCoroutine(SendData("http://localhost:5000/endpoint", PackageAlarmJson()));
+        StartCoroutine(SendJsonCoroutine("http://localhost:5000/endpoint", GetAlarmJson()));
     }
-    
-    public void StartSendingData(string url, List<Dictionary<string, object>> dataList)
-    {
-        // Start a new thread for sending data
-        Thread sendDataThread = new Thread(() => SendData(url, dataList));
-        sendDataThread.Start();
-    }
-    public class MyAlarm
+
+    public class MyAlarmObject
     {
         public int index { get; set; }
         public string time { get; set; }
         public bool state { get; set; }
     }
     
-    public static List<Dictionary<string, object>> PackageAlarmJson()
+    public string GetAlarmJson()
     {
-        List<Dictionary<string, object>> jsonAlarmObjectsList = new List<Dictionary<string, object>>();
-        
-        MyAlarm myAlarm = new MyAlarm
+        List<MyAlarmObject> myObjects = new List<MyAlarmObject>
         {
-            index = 0,
-            time = "12:00 AM",
-            state = true
+            new MyAlarmObject { index = 0, time = "12:30 PM", state = true },
+            new MyAlarmObject { index = 1, time = "3:45 PM", state = false },
+            new MyAlarmObject { index = 2, time = "6:15 AM", state = true }
         };
-        
-        MyAlarm myAlarm1 = new MyAlarm
-        {
-            index = 1,
-            time = "08:00 PM",
-            state = false
-        };
-        
-        Dictionary<string, object> jsonAlarmObject = new Dictionary<string, object>
-        {
-            { "index", myAlarm.index },
-            { "time", myAlarm.time },
-            { "state", myAlarm.state }
-        };
-        
-        Dictionary<string, object> jsonAlarmObject1 = new Dictionary<string, object>
-        {
-            { "index", myAlarm1.index },
-            { "time", myAlarm1.time },
-            { "state", myAlarm1.state }
-        };
-        
-        jsonAlarmObjectsList.Add(jsonAlarmObject);
-        jsonAlarmObjectsList.Add(jsonAlarmObject1);
-        
-        return jsonAlarmObjectsList;
+
+        string json = JsonConvert.SerializeObject(myObjects, Formatting.Indented);
+        return json;
     }
     
-    public static void PrintJsonObjectsList(List<Dictionary<string, object>> jsonObjectsList)
+    private IEnumerator SendJsonCoroutine(string url, string json)
     {
-        foreach (var jsonObject in jsonObjectsList)
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] jsonBytes = System.Text.Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(jsonBytes);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+    
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log("{ index : " + jsonObject["index"] + ", time : " + jsonObject["time"] + ", state : " + jsonObject["state"] + " }");
+            Debug.LogError("Failed to send JSON to server. Error: " + request.error);
         }
+        else
+        {
+            string responseContent = request.downloadHandler.text;
+            Debug.Log("Response from server: " + responseContent);
+        }
+        
+        request.Dispose();
     }
-    
 }
