@@ -134,20 +134,16 @@ public class AlarmActivity : MonoBehaviour
             // Parse the JSON response
             alarmList = JsonConvert.DeserializeObject<List<MyAlarmObject>>(responseContent);
             // Access and print out the JSON data
-            for (int i = 0; i < alarmList.Count; i++)
+            foreach (MyAlarmObject alarm in alarmList)
             {
-                MyAlarmObject alarm = alarmList[i];
                 // Debug.Log("Index: " + alarm.index + ", Time: " + alarm.time + ", State: " + alarm.state);
                 GameObject alarmObject = Instantiate(addWhat, addWhere.transform);
                 AlarmObject alarmObjectScript = alarmObject.GetComponent<AlarmObject>();
                 string time = alarm.time.Substring(0, alarm.time.Length - 3);
                 string amPm = alarm.time.Substring(alarm.time.Length - 2);
-
-                if (i == 0)
-                {
-                    alarmObjectScript.Initialize();
-                }
-
+                
+                alarmObjectScript.Initialize();
+                
                 alarmObjectScript.timeText.text = time;
                 if (alarm.state == false)
                 {
