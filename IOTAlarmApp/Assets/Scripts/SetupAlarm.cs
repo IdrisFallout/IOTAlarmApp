@@ -132,17 +132,4 @@ public class SetupAlarm : MonoBehaviour
         myTime[2] = finalAmPm;
         return myTime;
     }
-
-    // [SerializeField]
-    // private TextMeshProUGUI TimeText;
-    //
-    // [SerializeField]
-    // private TextMeshProUGUI AmPmText;
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-    //     DateTime time = System.DateTime.Now;
-    //     TimeText.text = time.ToString("hh:mm");
-    //     AmPmText.text = time.ToString("tt");
-    // }
 }
