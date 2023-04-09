@@ -2597,7 +2597,6 @@ MonoBehaviour:
   errorText: {fileID: 792210952365733415}
   amPmDropdown: {fileID: 6777056245456603124}
   addWhat: {fileID: 5240117278005258272, guid: 1ee1b0f2dec2646498dc461923899b50, type: 3}
-  AlarmPanel: {fileID: 0}
 --- !u!1 &7795371124346407385
 GameObject:
   m_ObjectHideFlags: 0

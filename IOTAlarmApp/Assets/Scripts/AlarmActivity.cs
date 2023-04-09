@@ -35,6 +35,12 @@ public class AlarmActivity : MonoBehaviour
     private Sprite notSynced;
     
     [HideInInspector] public bool isStartup = true;
+    
+    [Header("Error Panel")]
+    private GameObject errorPanel;
+    public GameObject addWhereError;
+    public GameObject addWhatError;
+    
 
     private void Start()
     {
@@ -111,7 +117,14 @@ public class AlarmActivity : MonoBehaviour
         {
             string responseContent = request.downloadHandler.text;
             ResponseJson responseData = JsonConvert.DeserializeObject<ResponseJson>(responseContent);
-            Debug.Log("Response from server: " + responseData.status + " " + responseData.message);
+            string the_response = "Response from server: " + responseData.status + " " + responseData.message;
+            
+            errorPanel = Instantiate(addWhatError, addWhereError.transform);
+            DisplayError displayError = errorPanel.GetComponent<DisplayError>();
+            displayError.DisplayErrorText(the_response);
+            
+            Debug.Log(the_response);
+            
             isSynced = true;
             CheckSync();
         }

@@ -23,8 +23,5 @@ public class AddAlarm : MonoBehaviour
         if(alarmAppPanel.isStartup) return;
         if (isExpanded) return;
         setAlarmPanel = Instantiate(addWhat, addWhere.transform);
-        
-        alarmAppPanel.isSynced = false;
-        alarmAppPanel.CheckSync();
     }
 }

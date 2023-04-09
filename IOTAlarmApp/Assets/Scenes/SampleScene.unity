@@ -1414,6 +1414,9 @@ MonoBehaviour:
   syncimage: {fileID: 1880785913}
   synced: {fileID: 21300000, guid: d0854ef3b0a8afe439d2240e8285a77b, type: 3}
   notSynced: {fileID: 21300000, guid: 94c9e3545edafef4fb36ba97cae9f5af, type: 3}
+  isStartup: 1
+  addWhereError: {fileID: 1807644633}
+  addWhatError: {fileID: 8006476753074281047, guid: c34cdcb99514fcc4bb2dd8fdd3a246f6, type: 3}
 --- !u!1 &1862586043
 GameObject:
   m_ObjectHideFlags: 0
