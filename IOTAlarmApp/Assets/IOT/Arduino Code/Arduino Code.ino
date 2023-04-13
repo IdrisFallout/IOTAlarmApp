@@ -1,6 +1,18 @@
 #include <ArduinoJson.h>
+#include <virtuabotixRTC.h>
 
 #define buzzerPin 3
+
+virtuabotixRTC myRTC(6, 7, 8);
+
+int theHour = 0;
+int theMinutes = 0;
+int theSeconds = 0;
+
+String theTime = "";
+
+int secondToggle = 0;
+int secondBuffer[] = { 0, 0 };
 
 int hours_counter = 0;
 int hours_tracker[2];
@@ -26,15 +38,13 @@ void setup() {
 }
 
 void loop() {
+  ReadRTC();
+  parse_time(theTime);
   if (Serial.available()) {                   // Check if data is available to read
     String s = Serial.readStringUntil('\n');  // Read the incoming string until newline character
     Serial.println(s);
 
-    if (s.startsWith("Now:")) {
-      // the time now
-      parse_time(extract_time_string(s));
-    } else if (s.startsWith("[")) {
-      // list of alarms
+    if (s.startsWith("[")) {
       parse_alarms(s);
     }
   }
@@ -76,11 +86,32 @@ void parse_time(String s) {
     }
 
     if (minutes_tracker[0] == minutes_tracker[1]) {
-      
+
     } else {
       StartAlarm();
     }
   }
+}
+
+void ReadRTC() {
+  myRTC.updateTime();
+
+  theHour = myRTC.hours;
+  theMinutes = myRTC.minutes;
+  theSeconds = myRTC.seconds;
+
+  if (secondToggle == 0) {
+    secondBuffer[0] = theSeconds;
+    secondToggle = 1;
+  } else if (secondToggle == 1) {
+    secondBuffer[1] = theSeconds;
+    secondToggle = 0;
+  }
+
+  if (secondBuffer[0] == secondBuffer[1]) return;
+
+  theTime = (String)myRTC.hours + ":" + (String)myRTC.minutes + ":" + (String)myRTC.seconds;
+  Serial.println(theTime);
 }
 
 void parse_alarms(String s) {
@@ -162,7 +193,7 @@ void readAndPrintStrings(String inputString) {
   Serial.println(alarmString);  // Print the accumulated alarm times
 }
 
-void StartAlarm() { 
+void StartAlarm() {
   Serial.println("called....");
   Serial.println(currentTime);
   isRinging = false;

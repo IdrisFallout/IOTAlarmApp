@@ -2,8 +2,6 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
-#include <WiFiUdp.h>
-#include <NTPClient.h>
 #include <SoftwareSerial.h>
 #include <PubSubClient.h>
 
@@ -43,11 +41,6 @@ void setupAP(void);
 
 //Establishing Local server at port 80 whenever required
 ESP8266WebServer server(80);
-
-// Define NTP properties
-const long utcOffsetInSeconds = 3 * 60 * 60;  // UTC offset for Nairobi (+3 hours)
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 void setup() {
 
@@ -94,9 +87,6 @@ void setup_password() {
   WiFi.begin(esid.c_str(), epass.c_str());
   if (testWifi()) {
     Serial.println("Succesfully Connected!!!");
-    // Initialize NTP client
-    timeClient.begin();
-    timeClient.update();
 
     client.setServer(mqtt_server, 1883);
     client.setCallback(callback);
@@ -355,30 +345,7 @@ void handleData() {
 }
 
 void main_program() {
-  update_clock();
   start_mqtt();
-}
-
-
-void update_clock() {
-  static unsigned long previousMillis = 0;  // Keep track of the last time the function was called
-  const long interval = 1000;               // 1 second in milliseconds
-
-  // Check if it's time to update the clock again
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
-    // Update NTP client to get current time
-    timeClient.update();
-    // Print current time to serial monitor in Nairobi time zone
-    Serial.print("Current time in Nairobi: ");
-    timeClient.setTimeOffset(utcOffsetInSeconds);  // Set Nairobi UTC offset
-    String tf = timeClient.getFormattedTime();
-    Serial.println(tf);
-    mySerial.println("Now:" + tf);
-
-    // Update previousMillis to the current time
-    previousMillis = currentMillis;
-  }
 }
 
 
