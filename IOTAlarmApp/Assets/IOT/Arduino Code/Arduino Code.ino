@@ -48,7 +48,7 @@ void printNodes() {
     Serial.print(": ");
     String theActualAlarm = convertToMilitaryTime(nodes[i]);
     Serial.println(theActualAlarm);
-    if (theActualAlarm == currentTime) {
+    if (theActualAlarm == formatTime(currentTime)) {
       isRinging = true;
     }
   }
@@ -63,6 +63,8 @@ void setup() {
   Serial.begin(9600);
   pinMode(buzzerPin, OUTPUT);
   digitalWrite(buzzerPin, LOW);
+  // seconds, minutes, hours, day of the week, day of the month, month, year
+  // myRTC.setDS1302Time(0, 49, 1, 6, 15, 12, 2023);
 }
 
 void loop() {
@@ -230,4 +232,19 @@ void storeTimeValues(const String& input) {
       addNode(timeValue);
     }
   }
+}
+
+String formatTime(String timeString) {
+  // Extract hours and minutes from input string
+  int hours = timeString.substring(0, timeString.indexOf(':')).toInt();
+  int minutes = timeString.substring(timeString.indexOf(':') + 1).toInt();
+
+  // Format hours with leading zero if necessary
+  String formattedHours = (hours < 10) ? "0" + String(hours) : String(hours);
+
+  // Format minutes with leading zero if necessary
+  String formattedMinutes = (minutes < 10) ? "0" + String(minutes) : String(minutes);
+
+  // Return formatted time string
+  return formattedHours + ":" + formattedMinutes;
 }
