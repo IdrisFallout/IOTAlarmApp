@@ -1,5 +1,30 @@
 #include <ArduinoJson.h>
 #include <virtuabotixRTC.h>
+#include <Arduino.h>
+#include "DynamicArray.h"
+
+// #######################################################
+
+DynamicArray<String> nodes;
+
+void addNode(const String& time) {
+  nodes.push_back(time);  // Add new node to the DynamicArray
+}
+
+void printNodes() {
+  Serial.println("Nodes:");
+  for (int i = 0; i < nodes.size(); i++) {
+    Serial.print("Node ");
+    Serial.print(i + 1);
+    Serial.print(": ");
+    Serial.println(nodes[i]);
+  }
+}
+
+void clearNodes() {
+  nodes.clear();  // Clear all nodes in the DynamicArray
+}
+// ##########################################################
 
 #define buzzerPin 3
 
@@ -24,8 +49,6 @@ bool isRinging = false;
 
 String AlarmString = "";
 String currentTime = "";
-
-DynamicJsonDocument doc(1024);
 
 unsigned long previousMillis = 0;  // Store the previous time in milliseconds
 unsigned long interval = 100;
@@ -115,13 +138,22 @@ void ReadRTC() {
 }
 
 void parse_alarms(String s) {
-  DeserializationError error = deserializeJson(doc, s);
-  if (error) {
-    Serial.print("deserializeJson() failed: ");
-    Serial.println(error.c_str());
-    return;
-  }
+  // DynamicJsonDocument doc(1024);
+  // DeserializationError error = deserializeJson(doc, s);
+  // if (error) {
+  //   Serial.print("deserializeJson() failed: ");
+  //   Serial.println(error.c_str());
+  //   return;
+  // }
   beep(100);
+  // JsonArray arr = doc.as<JsonArray>();
+  clearNodes();
+  storeTimeValues(s);
+  // for (const auto& val : arr) {
+  //   addNode(val.as<String>());
+  //   Serial.println(val.as<String>());
+  // }
+  
   StartAlarm();
 }
 
@@ -143,6 +175,9 @@ String convertToMilitaryTime(String timeStr) {
   int hour = timeStr.substring(0, 2).toInt();
   int minute = timeStr.substring(3, 5).toInt();
   String amPm = timeStr.substring(6);
+  Serial.println("HOUR : " + (String)hour);
+  Serial.println("MINUTES : " + (String)minute);
+  Serial.println("AM/PM : " + (String)amPm);
 
   // Convert to military time
   if (amPm == "PM" && hour != 12) {
@@ -195,17 +230,7 @@ void readAndPrintStrings(String inputString) {
 
 void StartAlarm() {
   Serial.println("called....");
-  Serial.println(currentTime);
-  isRinging = false;
-  JsonArray arr = doc.as<JsonArray>();
-  for (const auto& val : arr) {
-    // Print each element to Serial monitor
-    String alarmTime = convertToMilitaryTime(val.as<String>());
-    if (alarmTime == currentTime) {
-      isRinging = true;
-      Serial.println("CURRENT TIME: " + currentTime);
-    }
-  }
+  printNodes();
 }
 
 void ringing_sequence() {
@@ -226,4 +251,26 @@ void beep(int the_delay) {
   digitalWrite(buzzerPin, HIGH);
   delay(the_delay);
   digitalWrite(buzzerPin, LOW);
+}
+
+void storeTimeValues(const String& input) {
+  // Remove square brackets from the input string
+  String inputWithoutBrackets = input.substring(1, input.length() - 1);
+
+  // Split the input string into individual time values based on commas
+  int startPos = 0;
+  int endPos = 0;
+  while (endPos >= 0) {
+    endPos = inputWithoutBrackets.indexOf(',', startPos);
+    if (endPos >= 0) {
+      String timeValue = inputWithoutBrackets.substring(startPos + 1, endPos - 1); // Skip the square bracket, space, and quotation mark after the comma
+      // Serial.println(timeValue);
+      addNode(timeValue);
+      startPos = endPos + 2; // Skip the comma and space after it
+    } else {
+      String timeValue = inputWithoutBrackets.substring(startPos + 1, inputWithoutBrackets.length() - 2); // Skip the square bracket, space, and quotation mark
+      // Serial.println(timeValue);
+      addNode(timeValue);
+    }
+  }
 }
