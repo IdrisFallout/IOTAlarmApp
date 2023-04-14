@@ -30,6 +30,11 @@ String currentTime = "";
 unsigned long previousMillis = 0;  // Store the previous time in milliseconds
 unsigned long interval = 100;
 
+#define INTERVAL_ON 100
+#define INTERVAL_OFF_SHORT 100
+#define INTERVAL_OFF_LONG 700
+int beepState = 0;
+
 DynamicArray<String> nodes;
 
 void addNode(const String& time) {
@@ -38,12 +43,12 @@ void addNode(const String& time) {
 
 void printNodes() {
   for (int i = 0; i < nodes.size(); i++) {
-    Serial.print("Node ");
+    Serial.print("Alarm ");
     Serial.print(i + 1);
     Serial.print(": ");
     String theActualAlarm = convertToMilitaryTime(nodes[i]);
     Serial.println(theActualAlarm);
-    if (theActualAlarm == currentTime){
+    if (theActualAlarm == currentTime) {
       isRinging = true;
     }
   }
@@ -69,9 +74,10 @@ void loop() {
 
     if (s.startsWith("[")) {
       beep(100);
+      isRinging = false;
       if (s.charAt(0) == '[' && s.charAt(1) == ']') {
         clearNodes();
-      }else {
+      } else {
         parse_alarms(s);
       }
     }
@@ -166,7 +172,7 @@ String convertToMilitaryTime(String timeStr) {
 }
 
 void StartAlarm() {
-  Serial.println("called....");
+  Serial.println("Check Alarms....");
   isRinging = false;
   printNodes();
 }
@@ -175,11 +181,26 @@ void ringing_sequence() {
   if (isRinging == true) {
     unsigned long currentMillis = millis();  // Get the current time in milliseconds
 
-    if (currentMillis - previousMillis >= interval) {
+    // Check the current state of the beep sequence
+    if (beepState == 0 && currentMillis - previousMillis >= INTERVAL_ON) {
+      digitalWrite(buzzerPin, HIGH);   // Turn on the buzzer
       previousMillis = currentMillis;  // Update the previous time
-
-      // Toggle the buzzer state
-      digitalWrite(buzzerPin, !digitalRead(buzzerPin));
+      beepState = 1;                   // Move to the next state
+    } else if (beepState == 1 && currentMillis - previousMillis >= INTERVAL_OFF_SHORT) {
+      digitalWrite(buzzerPin, LOW);    // Turn off the buzzer
+      previousMillis = currentMillis;  // Update the previous time
+      beepState = 2;                   // Move to the next state
+    } else if (beepState == 2 && currentMillis - previousMillis >= INTERVAL_ON) {
+      digitalWrite(buzzerPin, HIGH);   // Turn on the buzzer
+      previousMillis = currentMillis;  // Update the previous time
+      beepState = 3;                   // Move to the next state
+    } else if (beepState == 3 && currentMillis - previousMillis >= INTERVAL_OFF_SHORT) {
+      digitalWrite(buzzerPin, LOW);    // Turn off the buzzer
+      previousMillis = currentMillis;  // Update the previous time
+      beepState = 4;                   // Move to the next state
+    } else if (beepState == 4 && currentMillis - previousMillis >= INTERVAL_OFF_LONG) {
+      previousMillis = currentMillis;  // Update the previous time
+      beepState = 0;                   // Reset the beep sequence
     }
   }
 }
