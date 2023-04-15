@@ -77,6 +77,7 @@ void loop() {
     if (s.startsWith("[")) {
       beep(100);
       isRinging = false;
+      digitalWrite(buzzerPin, LOW);
       if (s.charAt(0) == '[' && s.charAt(1) == ']') {
         clearNodes();
       } else {
@@ -176,6 +177,7 @@ String convertToMilitaryTime(String timeStr) {
 void StartAlarm() {
   Serial.println("Check Alarms....");
   isRinging = false;
+  digitalWrite(buzzerPin, LOW);
   printNodes();
 }
 
