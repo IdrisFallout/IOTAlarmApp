@@ -60,6 +60,7 @@ public class AlarmActivity : MonoBehaviour
     
     public void SendToCloud()
     {
+        if(isStartup) return;
         StartCoroutine(SendJsonCoroutine(url + "/set_alarm", GetAlarmJson()));
     }
 
