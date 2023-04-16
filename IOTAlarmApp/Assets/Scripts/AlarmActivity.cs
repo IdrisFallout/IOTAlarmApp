@@ -19,7 +19,7 @@ public class AlarmActivity : MonoBehaviour
     public GameObject addWhere;
     public GameObject addWhat;
     // http://127.0.0.1:5000 or https://iotalarmapp.onrender.com
-    private string url = "http://127.0.0.1:5000";
+    private string url = "https://iotalarmapp.onrender.com";
     
     [Header("Check if synced")]
     [HideInInspector]
