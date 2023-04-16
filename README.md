@@ -8,3 +8,12 @@ This is an android app made in Unity to set alarm on an ESP8266. The app sends t
 - Buzzer
 
 ## Installation
+To set up the project you need do the following:
+- Install the [app](App/IOTAlarmApp.apk) on your android device
+- Ensure the [flask server](https://github.com/IdrisFallout/IOTAlarmApp-flaskapi) is running on your computer or the cloud
+- Ensure the [arduino code](IOTAlarmApp/Assets/IOT/Arduino Code/Arduino Code.ino) is uploaded to the arduino
+- Ensure the [ESP8266 code](IOTAlarmApp/Assets/IOT/ESP Code/ESP Code.ino) is uploaded to the ESP8266
+- Ensure the circuit is wired up as shown in the diagram [here](#Wiring)
+
+## Wiring
+![Wiring Diagram](screenshots/wiring.png)
