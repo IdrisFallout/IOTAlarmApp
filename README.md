@@ -1,2 +1,2 @@
 # IOTAlarmApp
-an android app in unity
+This is an android app made in Unity to set alarm to an ESP8266
