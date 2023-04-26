@@ -11,6 +11,7 @@ TagManager:
   - add-button
   - modify-alarm
   - error-panel
+  - time-remaining
   layers:
   - Default
   - TransparentFX

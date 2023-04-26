@@ -360,6 +360,7 @@ MonoBehaviour:
   isSwitchedOn: 1
   timeText: {fileID: 5240117278925794282}
   amPmText: {fileID: 5240117278047150548}
+  timeRemaining: {fileID: 1210619395757268357, guid: 78047c0a630734f47b5a75ce3d6d7fd6, type: 3}
 --- !u!1 &5240117278047150550
 GameObject:
   m_ObjectHideFlags: 0

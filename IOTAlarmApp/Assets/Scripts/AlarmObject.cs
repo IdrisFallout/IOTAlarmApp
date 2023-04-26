@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Threading;
 
 public class AlarmObject : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class AlarmObject : MonoBehaviour
     public TextMeshProUGUI amPmText;
 
     private AlarmActivity alarmAppPanel;
+    
+    [SerializeField]
+    private GameObject timeRemaining;
 
     private void Start()
     {
@@ -54,6 +58,9 @@ public class AlarmObject : MonoBehaviour
         {
             image.sprite = switchOn;
             textMeshPro.text = "Alarm is on";
+            // Call the function TimeRemaining in a coroutine
+            Thread thread = new Thread(TimeRemaining);
+            thread.Start();
         }
 
         // Toggle the boolean flag
@@ -70,5 +77,12 @@ public class AlarmObject : MonoBehaviour
         if(alarmAppPanel.isStartup) return;
         alarmAppPanel.isSynced = false;
         alarmAppPanel.CheckSync();
+    }
+
+    public void TimeRemaining()
+    {
+        Instantiate(timeRemaining, alarmAppPanel.transform);
+        Thread.Sleep(1000);
+        Destroy(timeRemaining);
     }
 }
