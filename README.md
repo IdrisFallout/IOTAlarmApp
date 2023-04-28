@@ -19,5 +19,5 @@ To set up the project you need do the following:
 ![Wiring Diagram](screenshots/wiring.png)
 
 ## Future Improvements
-- Add a snooze function
+- Add a snooze functionality
 - Add animations like loading on the app
